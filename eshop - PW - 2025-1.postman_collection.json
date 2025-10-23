@@ -1,0 +1,241 @@
+{
+	"info": {
+		"_postman_id": "328bf210-cc04-4b0a-a5ee-2e053571b7b4",
+		"name": "gerenciador PW 2025",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10292792"
+	},
+	"item": [
+		{
+			"name": "get categorias",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3002/categoria",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"categoria"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add categoria",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"nome\" : \"Informática\"} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3002/categoria",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"categoria"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update categoria",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"codigo\": 8,\n        \"nome\": \"Informática alterada\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3002/categoria",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"categoria"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete categoria",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3002/categoria/8",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"categoria",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get categoria por codigo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3002/categoria/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"categoria",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get produtos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3002/produto",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"produto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add produto",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nome\": \"Mouse USB novo\",\n        \"descricao\": \"Mouse USB\",\n        \"quantidade_estoque\": 20,\n        \"ativo\": true,\n        \"valor\": \"60.00\",\n        \"data_cadastro\": \"2024-07-08\",\n        \"categoria\": 1\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3002/produto",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"produto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update produto",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"codigo\": 4,\n        \"nome\": \"Mouse USB novo\",\n        \"descricao\": \"Mouse USB\",\n        \"quantidade_estoque\": 20,\n        \"ativo\": true,\n        \"valor\": \"60.00\",\n        \"data_cadastro\": \"2024-07-08\",\n        \"categoria\": 1,\n        \"categoria_nome\": \"\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3002/produto",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"produto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "get produto por codigo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3002/produto/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"produto",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete produto",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3002/produto/6",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"produto",
+						"6"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
