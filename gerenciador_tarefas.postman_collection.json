@@ -1,0 +1,274 @@
+{
+	"info": {
+		"_postman_id": "328bf210-cc04-4b0a-a5ee-2e053571b7b4",
+		"name": "Gerenciador de Tarefas API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10292792"
+	},
+	"item": [
+		{
+			"name": "Projetos",
+			"item": [
+				{
+					"name": "Listar projetos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3002/projetos",
+							"host": ["localhost"],
+							"port": "3002",
+							"path": ["projetos"]
+						}
+					}
+				},
+				{
+					"name": "Buscar projeto por código",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3002/projetos/1",
+							"host": ["localhost"],
+							"port": "3002",
+							"path": ["projetos", "1"]
+						}
+					}
+				},
+				{
+					"name": "Criar projeto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"Meu Projeto\",\n  \"descricao\": \"Descrição do projeto\",\n  \"usuario_codigo\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3002/projetos",
+							"host": ["localhost"],
+							"port": "3002",
+							"path": ["projetos"]
+						}
+					}
+				},
+				{
+					"name": "Atualizar projeto",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"codigo\": 1,\n  \"nome\": \"Projeto Atualizado\",\n  \"descricao\": \"Nova descrição\",\n  \"usuario_codigo\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3002/projetos",
+							"host": ["localhost"],
+							"port": "3002",
+							"path": ["projetos"]
+						}
+					}
+				},
+				{
+					"name": "Deletar projeto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3002/projetos/1",
+							"host": ["localhost"],
+							"port": "3002",
+							"path": ["projetos", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Tarefas",
+			"item": [
+				{
+					"name": "Listar tarefas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3002/tarefas",
+							"host": ["localhost"],
+							"port": "3002",
+							"path": ["tarefas"]
+						}
+					}
+				},
+				{
+					"name": "Buscar tarefa por código",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3002/tarefas/1",
+							"host": ["localhost"],
+							"port": "3002",
+							"path": ["tarefas", "1"]
+						}
+					}
+				},
+				{
+					"name": "Listar tarefas de um projeto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3002/projetos/1/tarefas",
+							"host": ["localhost"],
+							"port": "3002",
+							"path": ["projetos", "1", "tarefas"]
+						}
+					}
+				},
+				{
+					"name": "Criar tarefa",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"titulo\": \"Implementar feature X\",\n  \"descricao\": \"Detalhes da tarefa\",\n  \"status\": \"pendente\",\n  \"prioridade\": \"alta\",\n  \"projeto_codigo\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3002/tarefas",
+							"host": ["localhost"],
+							"port": "3002",
+							"path": ["tarefas"]
+						}
+					}
+				},
+				{
+					"name": "Atualizar tarefa",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"codigo\": 1,\n  \"titulo\": \"Implementar feature X\",\n  \"descricao\": \"Detalhes atualizados\",\n  \"status\": \"concluida\",\n  \"prioridade\": \"alta\",\n  \"projeto_codigo\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3002/tarefas",
+							"host": ["localhost"],
+							"port": "3002",
+							"path": ["tarefas"]
+						}
+					}
+				},
+				{
+					"name": "Deletar tarefa",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3002/tarefas/1",
+							"host": ["localhost"],
+							"port": "3002",
+							"path": ["tarefas", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Pomodoros",
+			"item": [
+				{
+					"name": "Listar pomodoros",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3002/pomodoros",
+							"host": ["localhost"],
+							"port": "3002",
+							"path": ["pomodoros"]
+						}
+					}
+				},
+				{
+					"name": "Listar pomodoros de uma tarefa",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3002/tarefas/1/pomodoros",
+							"host": ["localhost"],
+							"port": "3002",
+							"path": ["tarefas", "1", "pomodoros"]
+						}
+					}
+				},
+				{
+					"name": "Iniciar pomodoro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"tarefa_codigo\": 1,\n  \"duracao_trabalho\": 25,\n  \"duracao_pausa\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3002/pomodoros",
+							"host": ["localhost"],
+							"port": "3002",
+							"path": ["pomodoros"]
+						}
+					}
+				},
+				{
+					"name": "Finalizar pomodoro",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ciclos_completados\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3002/pomodoros/1",
+							"host": ["localhost"],
+							"port": "3002",
+							"path": ["pomodoros", "1"]
+						}
+					}
+				}
+			]
+		}
+	]
+}
