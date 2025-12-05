@@ -1,7 +1,7 @@
 const { getPomodorosDB, addPomodorooDB, updatePomodorooDB, getPomodorosPorTarefaDB } = require('../usecases/pomodoroUseCases');
 
 const getPomodoros = async (request, response) => {
-    await getPomodorosDB()
+    await getPomodorosDB(request.usuario.codigo)
           .then(data => response.status(200).json(data))
           .catch(err => response.status(400).json({
             status : 'error',
@@ -34,7 +34,7 @@ const updatePomodoro = async (request, response) => {
 }
 
 const getPomodorosPorTarefa = async (request, response) => {
-    await getPomodorosPorTarefaDB(request.params.tarefa_codigo)
+    await getPomodorosPorTarefaDB(request.params.tarefa_codigo, request.usuario.codigo)
           .then(data => response.status(200).json(data))
           .catch(err => response.status(400).json({
             status : 'error',

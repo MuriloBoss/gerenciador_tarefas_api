@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { getTarefas, addTarefa, updateTarefa, deleteTarefa, getTarefaPorCodigo, getTarefasPorProjeto } = require('../controllers/tarefaController');
+const { verificarAdmin } = require('../controllers/segurancaController');
 
 const rotasTarefas = new Router();
 

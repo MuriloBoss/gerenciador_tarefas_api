@@ -6,6 +6,7 @@ CREATE TABLE usuarios (
     email VARCHAR(100) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
     nome VARCHAR(100) NOT NULL,
+    tipo VARCHAR(20) DEFAULT 'comum' CHECK (tipo IN ('comum', 'admin')),
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -42,9 +43,9 @@ CREATE TABLE pomodoros (
 );
 
 -- Dados de exemplo
-INSERT INTO usuarios (email, senha, nome) VALUES 
-('admin@email.com', '123456', 'Administrador'),
-('user@email.com', '123456', 'Usuário Teste');
+INSERT INTO usuarios (email, senha, nome, tipo) VALUES 
+('admin@email.com', '123456', 'Administrador', 'admin'),
+('user@email.com', '123456', 'Usuário Teste', 'comum');
 
 INSERT INTO projetos (nome, descricao, usuario_codigo) VALUES 
 ('Projeto Web', 'Desenvolvimento de aplicação web', 1),

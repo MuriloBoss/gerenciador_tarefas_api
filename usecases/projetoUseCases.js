@@ -1,10 +1,33 @@
 const { pool } = require('../config');
 const Projeto = require('../entities/projeto');
 
-const getProjetosDB = async () => {
+const getProjetosDB = async (usuario) => {
     try {
-        const { rows } = await pool.query('SELECT * FROM projetos ORDER BY data_criacao DESC');
-        return rows.map((p) => new Projeto(p.codigo, p.nome, p.descricao, p.usuario_codigo, p.data_criacao));
+        let query;
+        let params = [];
+        
+        if (usuario.tipo === 'admin') {
+            // Admin vê todos os projetos
+            query = `
+                SELECT p.*, u.nome as usuario_nome 
+                FROM projetos p 
+                JOIN usuarios u ON p.usuario_codigo = u.codigo
+                ORDER BY p.codigo DESC
+            `;
+        } else {
+            // Comum vê apenas seus projetos
+            query = `
+                SELECT p.*, u.nome as usuario_nome 
+                FROM projetos p 
+                JOIN usuarios u ON p.usuario_codigo = u.codigo
+                WHERE p.usuario_codigo = $1
+                ORDER BY p.codigo DESC
+            `;
+            params = [usuario.codigo];
+        }
+        
+        const { rows } = await pool.query(query, params);
+        return rows;
     } catch (err){
         throw "ERRO: " + err;
     }
@@ -15,7 +38,7 @@ const addProjetoDB = async (body) => {
         const { nome, descricao, usuario_codigo } = body;
         const results = await pool.query(`INSERT INTO projetos (nome, descricao, usuario_codigo)
             VALUES ($1, $2, $3) RETURNING codigo, nome, descricao, usuario_codigo, data_criacao`,
-            [nome, descricao || null, usuario_codigo || 1]);
+            [nome, descricao || null, usuario_codigo]);
         const p = results.rows[0];
         return new Projeto(p.codigo, p.nome, p.descricao, p.usuario_codigo, p.data_criacao);
     } catch(err){
@@ -52,9 +75,12 @@ const deleteProjetoDB = async (codigo) => {
     }
 }
 
-const getProjetoPorCodigoDB = async (codigo) => {
+const getProjetoPorCodigoDB = async (codigo, usuario_codigo) => {
     try {
-        const results = await pool.query(`SELECT * FROM projetos WHERE codigo = $1`,[codigo]);
+        const results = await pool.query(
+            `SELECT * FROM projetos WHERE codigo = $1 AND usuario_codigo = $2`,
+            [codigo, usuario_codigo]
+        );
         if (results.rowCount == 0){
             throw `Nenhum registro encontrado com o código ${codigo}`;
         } else {

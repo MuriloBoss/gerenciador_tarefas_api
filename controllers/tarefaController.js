@@ -1,7 +1,7 @@
 const { getTarefasDB, addTarefaDB, updateTarefaDB, deleteTarefaDB, getTarefaPorCodigoDB, getTarefasPorProjetoDB } = require('../usecases/tarefaUseCases');
 
 const getTarefas = async (request, response) => {
-    await getTarefasDB()
+    await getTarefasDB(request.usuario)
           .then(data => response.status(200).json(data))
           .catch(err => response.status(400).json({
             status : 'error',
@@ -52,7 +52,7 @@ const deleteTarefa = async (request, response) => {
 }
 
 const getTarefaPorCodigo = async (request, response) => {
-    await getTarefaPorCodigoDB(request.params.codigo)
+    await getTarefaPorCodigoDB(request.params.codigo, request.usuario.codigo)
           .then(data => response.status(200).json(data))
           .catch(err => response.status(400).json({
             status : 'error',
@@ -61,7 +61,7 @@ const getTarefaPorCodigo = async (request, response) => {
 }
 
 const getTarefasPorProjeto = async (request, response) => {
-    await getTarefasPorProjetoDB(request.params.projeto_codigo)
+    await getTarefasPorProjetoDB(request.params.projeto_codigo, request.usuario.codigo)
           .then(data => response.status(200).json(data))
           .catch(err => response.status(400).json({
             status : 'error',

@@ -1,15 +1,35 @@
 const { pool } = require('../config');
 const Tarefa = require('../entities/tarefa');
 
-const getTarefasDB = async () => {
+const getTarefasDB = async (usuario) => {
     try {
-        const { rows } = await pool.query(`
-            SELECT t.*, p.nome as projeto_nome 
-            FROM tarefas t 
-            LEFT JOIN projetos p ON t.projeto_codigo = p.codigo 
-            ORDER BY t.data_criacao DESC`);
-        return rows.map((t) => new Tarefa(t.codigo, t.titulo, t.descricao, t.status, 
-            t.prioridade, t.projeto_codigo, t.projeto_nome, t.data_criacao, t.data_conclusao));
+        let query;
+        let params = [];
+        
+        if (usuario.tipo === 'admin') {
+            // Admin vê todas as tarefas
+            query = `
+                SELECT t.*, u.nome as usuario_nome 
+                FROM tarefas t 
+                JOIN projetos p ON t.projeto_codigo = p.codigo
+                JOIN usuarios u ON p.usuario_codigo = u.codigo
+                ORDER BY t.codigo DESC
+            `;
+        } else {
+            // Comum vê apenas suas tarefas
+            query = `
+                SELECT t.*, u.nome as usuario_nome 
+                FROM tarefas t 
+                JOIN projetos p ON t.projeto_codigo = p.codigo
+                JOIN usuarios u ON p.usuario_codigo = u.codigo
+                WHERE p.usuario_codigo = $1
+                ORDER BY t.codigo DESC
+            `;
+            params = [usuario.codigo];
+        }
+        
+        const { rows } = await pool.query(query, params);
+        return rows;
     } catch (err){
         throw "ERRO: " + err;
     }
@@ -60,13 +80,13 @@ const deleteTarefaDB = async (codigo) => {
     }
 }
 
-const getTarefaPorCodigoDB = async (codigo) => {
+const getTarefaPorCodigoDB = async (codigo, usuario_codigo) => {
     try {
         const results = await pool.query(`
             SELECT t.*, p.nome as projeto_nome 
             FROM tarefas t 
             LEFT JOIN projetos p ON t.projeto_codigo = p.codigo 
-            WHERE t.codigo = $1`,[codigo]);
+            WHERE t.codigo = $1 AND p.usuario_codigo = $2`,[codigo, usuario_codigo]);
         if (results.rowCount == 0){
             throw `Nenhum registro encontrado com o código ${codigo}`;
         } else {
@@ -79,14 +99,14 @@ const getTarefaPorCodigoDB = async (codigo) => {
     }
 }
 
-const getTarefasPorProjetoDB = async (projeto_codigo) => {
+const getTarefasPorProjetoDB = async (projeto_codigo, usuario_codigo) => {
     try {
         const { rows } = await pool.query(`
             SELECT t.*, p.nome as projeto_nome 
             FROM tarefas t 
             LEFT JOIN projetos p ON t.projeto_codigo = p.codigo 
-            WHERE t.projeto_codigo = $1 
-            ORDER BY t.data_criacao DESC`,[projeto_codigo]);
+            WHERE t.projeto_codigo = $1 AND p.usuario_codigo = $2
+            ORDER BY t.data_criacao DESC`,[projeto_codigo, usuario_codigo]);
         return rows.map((t) => new Tarefa(t.codigo, t.titulo, t.descricao, t.status, 
             t.prioridade, t.projeto_codigo, t.projeto_nome, t.data_criacao, t.data_conclusao));
     } catch(err){

@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { getProjetos, addProjeto, updateProjeto, deleteProjeto, getProjetoPorCodigo } = require('../controllers/projetoController');
+const { verificarAdmin } = require('../controllers/segurancaController');
 
 const rotasProjetos = new Router();
 

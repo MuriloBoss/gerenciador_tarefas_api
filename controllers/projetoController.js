@@ -1,7 +1,7 @@
 const { getProjetosDB, addProjetoDB, updateProjetoDB, deleteProjetoDB, getProjetoPorCodigoDB } = require('../usecases/projetoUseCases');
 
 const getProjetos = async (request, response) => {
-    await getProjetosDB()
+    await getProjetosDB(request.usuario)
           .then(data => response.status(200).json(data))
           .catch(err => response.status(400).json({
             status : 'error',
@@ -10,22 +10,15 @@ const getProjetos = async (request, response) => {
 }
 
 const addProjeto = async (request, response) => {
-    console.log('Recebendo requisição POST /projetos:', request.body);
-    await addProjetoDB(request.body)
-          .then(data => {
-              console.log('Projeto criado com sucesso:', data);
-              response.status(200).json({
+    await addProjetoDB({...request.body, usuario_codigo: request.usuario.codigo})
+          .then(data => response.status(200).json({
                 "status" : "success", "message" : "Projeto criado",
                 "objeto" : data
-              })
-          })
-          .catch(err => {
-              console.error('Erro ao criar projeto:', err);
-              response.status(400).json({
+          }))
+          .catch(err => response.status(400).json({
                 status : 'error',
                 message : err
-              })
-          })
+          }))
 }
 
 const updateProjeto = async (request, response) => {
@@ -52,7 +45,7 @@ const deleteProjeto = async (request, response) => {
 }
 
 const getProjetoPorCodigo = async (request, response) => {
-    await getProjetoPorCodigoDB(request.params.codigo)
+    await getProjetoPorCodigoDB(request.params.codigo, request.usuario.codigo)
           .then(data => response.status(200).json(data))
           .catch(err => response.status(400).json({
             status : 'error',
