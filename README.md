@@ -17,7 +17,7 @@ API REST para gerenciamento de tarefas e projetos.
 - `GET /projetos/:codigo` - Buscar projeto por código
 - `POST /projetos` - Criar novo projeto
 - `PUT /projetos` - Atualizar projeto
-- `DELETE /projetos/:codigo` - Deletar projeto
+- `DELETE /projetos/:codigo` - Deletar projeto (apenas admin)
 
 ### Tarefas
 - `GET /tarefas` - Listar todas as tarefas
@@ -25,7 +25,7 @@ API REST para gerenciamento de tarefas e projetos.
 - `GET /projetos/:projeto_codigo/tarefas` - Listar tarefas de um projeto
 - `POST /tarefas` - Criar nova tarefa
 - `PUT /tarefas` - Atualizar tarefa
-- `DELETE /tarefas/:codigo` - Deletar tarefa
+- `DELETE /tarefas/:codigo` - Deletar tarefa (apenas admin)
 
 ### Pomodoros
 - `GET /pomodoros` - Listar todos os pomodoros
@@ -99,6 +99,11 @@ PUT /pomodoros/1
 - `media`
 - `alta`
 - `urgente`
+
+## Autorização
+- **Exclusões**: Apenas usuários com tipo `admin` podem excluir projetos e tarefas
+- **Autenticação**: Todas as rotas (exceto login e cadastro) requerem token JWT
+- **Token**: Deve ser enviado no header `Authorization: Bearer <token>`
 
 ## Deploy
 

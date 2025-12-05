@@ -11,6 +11,6 @@ rotasProjetos.route('/projetos')
 
 rotasProjetos.route('/projetos/:codigo')
     .get(getProjetoPorCodigo)
-    .delete(deleteProjeto);
+    .delete(verificarAdmin, deleteProjeto);
 
 module.exports = { rotasProjetos };

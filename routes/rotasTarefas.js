@@ -11,7 +11,7 @@ rotasTarefas.route('/tarefas')
 
 rotasTarefas.route('/tarefas/:codigo')
     .get(getTarefaPorCodigo)
-    .delete(deleteTarefa);
+    .delete(verificarAdmin, deleteTarefa);
 
 rotasTarefas.route('/projetos/:projeto_codigo/tarefas')
     .get(getTarefasPorProjeto);
